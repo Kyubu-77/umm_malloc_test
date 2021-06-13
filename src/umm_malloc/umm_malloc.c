@@ -41,8 +41,6 @@
 #include <stddef.h>
 #include <string.h>
 
-#include <Arduino.h>
-
 #include "umm_malloc_cfg.h"   /* user-dependent */
 #include "umm_malloc.h"
 
@@ -269,9 +267,8 @@ void umm_init(void) {
      * too, there is no need to initialize these values due to the init code
      * that memsets the entire umm_ space to 0.
      */
-    //Serial.println("X");
     UMM_NBLOCK(1) = UMM_BLOCK_LAST | UMM_FREELIST_MASK;
-    
+
     /*
      * Last umm_block[n] has the next block index at 0, meaning it's
      * the end of the list, and the previous block is umm_block[1].
@@ -279,10 +276,8 @@ void umm_init(void) {
      * The last block is a special block and can never be part of the
      * free list, so its pointers are left at 0 too.
      */
+
     UMM_PBLOCK(UMM_BLOCK_LAST) = 1;
-    //UMM_PBLOCK(umm_numblocks) = 1;
-    
-    //umm_heap[UMM_BLOCK_LAST].header.used.prev = 1;
 
 // DBGLOG_FORCE(true, "nblock(0) %04x pblock(0) %04x nfree(0) %04x pfree(0) %04x\n", UMM_NBLOCK(0) & UMM_BLOCKNO_MASK, UMM_PBLOCK(0), UMM_NFREE(0), UMM_PFREE(0));
 // DBGLOG_FORCE(true, "nblock(1) %04x pblock(1) %04x nfree(1) %04x pfree(1) %04x\n", UMM_NBLOCK(1) & UMM_BLOCKNO_MASK, UMM_PBLOCK(1), UMM_NFREE(1), UMM_PFREE(1));
